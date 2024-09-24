@@ -10,18 +10,19 @@ const historyList = document.getElementById('historyList');
 let computerShips = [];
 let playerHits = 0;
 let computerHits = 0;
-let playerBoard = Array(25).fill(null);
+let playerBoard = [];
 let computerGuesses = new Set();
 let totalShips = 3; // Número total de barcos
 let playerScore = 0;
 let computerScore = 0;
 let gameActive = true; // Variável para controlar o estado do jogo
+let boardSize = 5; // Tamanho padrão do tabuleiro
 
 // Função para posicionar os barcos
 function placeComputerShips() {
     computerShips = []; // Reinicia os barcos
     while (computerShips.length < totalShips) {
-        let newShip = Math.floor(Math.random() * 25);
+        let newShip = Math.floor(Math.random() * (boardSize * boardSize));
         if (!computerShips.includes(newShip)) {
             computerShips.push(newShip);
         }
@@ -31,7 +32,9 @@ function placeComputerShips() {
 // Criar tabuleiro
 function createBoard() {
     board.innerHTML = ''; // Limpa o tabuleiro anterior
-    for (let i = 0; i < 25; i++) {
+    playerBoard = Array(boardSize * boardSize).fill(null); // Ajusta o tamanho do tabuleiro
+
+    for (let i = 0; i < boardSize * boardSize; i++) {
         const cell = document.createElement('div');
         cell.classList.add('cell');
         cell.dataset.index = i;
@@ -99,7 +102,7 @@ function computerTurn() {
 
     let computerGuess;
     do {
-        computerGuess = Math.floor(Math.random() * 25);
+        computerGuess = Math.floor(Math.random() * (boardSize * boardSize));
     } while (computerGuesses.has(computerGuess));
 
     computerGuesses.add(computerGuess);
@@ -133,13 +136,20 @@ function computerTurn() {
 function resetGame() {
     playerHits = 0;
     computerHits = 0;
-    playerBoard = Array(25).fill(null);
-    computerGuesses = new Set();
     playerScore = 0;
     computerScore = 0;
     gameActive = true; // Reinicia o estado do jogo
     scoreDisplay.style.display = 'none'; // Oculta a pontuação inicialmente
-    totalShips = difficultySelect.value === 'easy' ? 3 : 5; // Ajusta o número de barcos conforme a dificuldade
+
+    // Ajusta o número de barcos e o tamanho do tabuleiro conforme a dificuldade
+    if (difficultySelect.value === 'easy') {
+        totalShips = 3;
+        boardSize = 5; // Tamanho 5x5 para fácil
+    } else {
+        totalShips = 5;
+        boardSize = 10; // Tamanho 10x10 para difícil
+    }
+
     placeComputerShips();
     createBoard();
     resultDisplay.textContent = '';
