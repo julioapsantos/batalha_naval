@@ -49,3 +49,10 @@ body {
     list-style-type: none;
     padding: 0;
 }
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(10, 50px); /* Ajuste para 10 colunas */
+    gap: 5px; /* Espaçamento entre as células */
+    margin-bottom: 20px;
+}

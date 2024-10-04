@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Batalha Naval</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles2.css">
 </head>
 <body>
     <h1>Batalha Naval</h1>
@@ -18,8 +18,19 @@
             </select>
         </div>
     </div>
-    <div id="board"></div>
+    <div id="gameContainer">
+        <div id="board"></div>
+        <div id="history">
+            <h2>Histórico de Jogadas da Máquina</h2>
+            <ul id="historyList"></ul>
+        </div>
+    </div>
     <div id="result"></div>
-    <script src="script.js"></script>
+    <div id="score" style="display: none;">
+        <h2>Pontuação</h2>
+        <p>Jogador: <span id="playerScore">0</span></p>
+        <p>Máquina: <span id="computerScore">0</span></p>
+    </div>
+    <script src="sript2.js"></script>
 </body>
 </html>
