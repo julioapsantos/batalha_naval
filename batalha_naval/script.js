@@ -1,14 +1,14 @@
-const boardeasy = document.getElementById('boardeasy');
-const boardhard = document.getElementById('boardhard');
-const resultDisplay = document.getElementById('result');
-const startButton = document.getElementById('startButton');
-const difficultySelect = document.getElementById('difficulty');
-const scoreDisplay = document.getElementById('score');
-const playerScoreDisplay = document.getElementById('playerScore');
-const computerScoreDisplay = document.getElementById('computerScore');
-const historyList = document.getElementById('historyList');
-const playerHitsDisplay = document.getElementById('playerHits');
-const playerMissesDisplay = document.getElementById('playerMisses');
+const boardeasy = document.getElementById('tabelafacil');
+const boardhard = document.getElementById('tabeladificil');
+const resultDisplay = document.getElementById('resultado');
+const startButton = document.getElementById('botaoinicio');
+const difficultySelect = document.getElementById('dificuldade');
+const scoreDisplay = document.getElementById('pontuacao');
+const playerScoreDisplay = document.getElementById('pontuacaojogador');
+const computerScoreDisplay = document.getElementById('pontuacaomaquina');
+const historyList = document.getElementById('historicoLista');
+const playerHitsDisplay = document.getElementById('acertosjogador');
+const playerMissesDisplay = document.getElementById('errosjogador');
 
 let computerShips = [];
 let playerHits = 0;
@@ -34,7 +34,7 @@ function placeComputerShips() {
 
 
 function createBoard() {
-    const board = difficultySelect.value === 'easy' ? boardeasy : boardhard;
+    const board = difficultySelect.value === 'facil' ? boardeasy : boardhard;
     board.innerHTML = ''; 
     playerBoard = Array(boardSize * boardSize).fill(null); 
 
@@ -49,7 +49,7 @@ function createBoard() {
 
 
 function revealCells() {
-    const board = difficultySelect.value === 'easy' ? boardeasy : boardhard;
+    const board = difficultySelect.value === 'facil' ? boardeasy : boardhard;
     for (let i = 0; i < board.children.length; i++) {
         const cell = board.children[i];
         if (computerShips.includes(i)) {
@@ -88,9 +88,9 @@ function handlePlayerClick(e) {
     
    
     scoreDisplay.style.display = 'block';
-    playerScoreDisplay.textContent = playerScore; 
-    playerHitsDisplay.textContent = playerHits; 
-    playerMissesDisplay.textContent = playerMisses; 
+    playerScoreDisplay.textContent = pontuacaojogador; 
+    playerHitsDisplay.textContent = acertosjogador; 
+    playerMissesDisplay.textContent = errosjogador; 
 
    
     if (playerHits === totalShips) {
@@ -112,7 +112,7 @@ function computerTurn() {
     } while (computerGuesses.has(computerGuess));
 
     computerGuesses.add(computerGuess);
-    const board = difficultySelect.value === 'easy' ? boardeasy : boardhard;
+    const board = difficultySelect.value === 'facil' ? boardeasy : boardhard;
     const computerCell = board.children[computerGuess];
 
    
@@ -129,7 +129,7 @@ function computerTurn() {
     }
 
    
-    computerScoreDisplay.textContent = computerScore; 
+    computerScoreDisplay.textContent = pontuacaomaquina; 
     
     if (computerHits === totalShips) {
         resultDisplay.textContent += ' A máquina ganhou!';
@@ -149,7 +149,7 @@ function resetGame() {
     scoreDisplay.style.display = 'none'; 
 
     
-    if (difficultySelect.value === 'easy') {
+    if (difficultySelect.value === 'facil') {
         totalShips = 5;
         boardSize = 5; 
         boardeasy.style.display = 'grid'; 
@@ -164,18 +164,18 @@ function resetGame() {
     placeComputerShips();
     createBoard();
     resultDisplay.textContent = '';
-    playerScoreDisplay.textContent = playerScore;
-    computerScoreDisplay.textContent = computerScore;
-    playerHitsDisplay.textContent = playerHits;
-    playerMissesDisplay.textContent = playerMisses; 
+    playerScoreDisplay.textContent = pontuacaojogador;
+    computerScoreDisplay.textContent = pontuacaomaquina;
+    playerHitsDisplay.textContent = acertosjogador;
+    playerMissesDisplay.textContent = errosjogador; 
     historyList.innerHTML = '';
 }
 
 startButton.addEventListener('click', resetGame);
 
 difficultySelect.addEventListener('change', function() {
-    const difficulty = this.value === 'easy' ? 'Fácil' : 'Difícil';
-    alert(`Dificuldade escolhida: ${difficulty}`);
+    const difficulty = this.value === 'facil' ? 'Fácil' : 'Difícil';
+    alert(`Dificuldade escolhida: ${dificuldade}`);
     resetGame();
 });
 
