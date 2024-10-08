@@ -93,8 +93,8 @@ body {
     background: rgba(255, 255, 255, 0.8);
     padding: 10px;
     border-radius: 5px;
-    display: none;
-    opacity: 50%;
+    display: none; 
+    opacity: 0.9;
 }
 
 @media (max-width: 600px) {

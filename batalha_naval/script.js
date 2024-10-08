@@ -5,20 +5,20 @@ const startButton = document.getElementById('botaoinicio');
 const difficultySelect = document.getElementById('dificuldade');
 const scoreDisplay = document.getElementById('pontuacao');
 const playerScoreDisplay = document.getElementById('pontuacaojogador');
-const computerScoreDisplay = document.getElementById('pontuacaomaquina');
+const computerScoreDisplay = document.getElementById('pontuacaocomputador'); 
 const historyList = document.getElementById('historicoLista');
 const playerHitsDisplay = document.getElementById('acertosjogador');
 const playerMissesDisplay = document.getElementById('errosjogador');
 
 let computerShips = [];
-let playerHits = 0;
-let playerMisses = 0; 
-let computerHits = 0;
+let acertosjogador = 0;
+let errosjogador = 0; 
+let acertosmaquina = 0;
 let playerBoard = [];
 let computerGuesses = new Set();
 let totalShips = 3; 
-let playerScore = 0;
-let computerScore = 0;
+let pontuacaojogador = 0;
+let pontuacaomaquina = 0;
 let gameActive = true; 
 let boardSize = 5; 
 
@@ -32,9 +32,8 @@ function placeComputerShips() {
     }
 }
 
-
 function createBoard() {
-    const board = difficultySelect.value === 'facil' ? boardeasy : boardhard;
+    const board = difficultySelect.value === 'facil' ? boardeasy : boardhard; 
     board.innerHTML = ''; 
     playerBoard = Array(boardSize * boardSize).fill(null); 
 
@@ -47,9 +46,8 @@ function createBoard() {
     }
 }
 
-
 function revealCells() {
-    const board = difficultySelect.value === 'facil' ? boardeasy : boardhard;
+    const board = difficultySelect.value === 'facil' ? boardeasy : boardhard; 
     for (let i = 0; i < board.children.length; i++) {
         const cell = board.children[i];
         if (computerShips.includes(i)) {
@@ -59,7 +57,6 @@ function revealCells() {
         }
     }
 }
-
 
 function handlePlayerClick(e) {
     if (!gameActive) return; 
@@ -75,34 +72,32 @@ function handlePlayerClick(e) {
     if (computerShips.includes(parseInt(index))) {
         e.target.classList.add('hit');
         resultDisplay.textContent = 'Você acertou!';
-        playerHits++;
-        playerScore += 1000;
+        acertosjogador++;
+        pontuacaojogador += 1000;
     } else {
         e.target.classList.add('miss');
         resultDisplay.textContent = 'Você errou!';
-        playerMisses++; 
-        playerScore -= 50; 
+        errosjogador++; 
+        pontuacaojogador -= 50; 
     }
 
     e.target.removeEventListener('click', handlePlayerClick);
     
-   
     scoreDisplay.style.display = 'block';
     playerScoreDisplay.textContent = pontuacaojogador; 
     playerHitsDisplay.textContent = acertosjogador; 
     playerMissesDisplay.textContent = errosjogador; 
 
-   
-    if (playerHits === totalShips) {
+    if (acertosjogador === totalShips) {
         resultDisplay.textContent = 'Você ganhou!';
         gameActive = false; 
         revealCells(); 
         return;
     }
 
-    
     computerTurn();
 }
+
 function computerTurn() {
     if (!gameActive) return; 
 
@@ -115,40 +110,36 @@ function computerTurn() {
     const board = difficultySelect.value === 'facil' ? boardeasy : boardhard;
     const computerCell = board.children[computerGuess];
 
-   
     const guessText = `Máquina tentou a posição ${computerGuess}. `;
     historyList.innerHTML += `<li>${guessText}</li>`;
 
     if (computerShips.includes(computerGuess)) {
-        computerHits++;
-        computerScore += 1000; 
+        acertosmaquina++;
+        pontuacaomaquina += 1000; 
         resultDisplay.textContent += ' A máquina acertou!';
     } else {
-        computerScore -= 50; 
+        pontuacaomaquina -= 50; 
         resultDisplay.textContent += ' A máquina errou!';
     }
 
-   
     computerScoreDisplay.textContent = pontuacaomaquina; 
     
-    if (computerHits === totalShips) {
+    if (acertosmaquina === totalShips) { 
         resultDisplay.textContent += ' A máquina ganhou!';
         gameActive = false; 
         revealCells(); 
     }
 }
 
-
 function resetGame() {
-    playerHits = 0;
-    playerMisses = 0; 
-    computerHits = 0;
-    playerScore = 0;
-    computerScore = 0;
+    acertosjogador = 0;
+    errosjogador = 0; 
+    acertosmaquina = 0;
+    pontuacaojogador = 0;
+    pontuacaomaquina = 0;
     gameActive = true; 
     scoreDisplay.style.display = 'none'; 
 
-    
     if (difficultySelect.value === 'facil') {
         totalShips = 5;
         boardSize = 5; 
@@ -164,17 +155,17 @@ function resetGame() {
     placeComputerShips();
     createBoard();
     resultDisplay.textContent = '';
-    playerScoreDisplay.textContent = pontuacaojogador;
-    computerScoreDisplay.textContent = pontuacaomaquina;
-    playerHitsDisplay.textContent = acertosjogador;
+    playerScoreDisplay.textContent = pontuacaojogador; 
+    computerScoreDisplay.textContent = pontuacaomaquina; 
+    playerHitsDisplay.textContent = acertosjogador; 
     playerMissesDisplay.textContent = errosjogador; 
     historyList.innerHTML = '';
 }
 
-startButton.addEventListener('click', resetGame);
+startButton.addEventListener('click', resetGame); 
 
 difficultySelect.addEventListener('change', function() {
-    const difficulty = this.value === 'facil' ? 'Fácil' : 'Difícil';
+    const dificuldade = this.value === 'facil' ? 'Fácil' : 'Difícil';
     alert(`Dificuldade escolhida: ${dificuldade}`);
     resetGame();
 });
