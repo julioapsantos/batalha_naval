@@ -8,33 +8,33 @@
 </head>
 <body>
     <h1>Batalha Naval</h1>
-    <div id="controls">
-        <button id="startButton">Iniciar/Reiniciar Jogo</button>
+    <div id="controle">
+        <botao id="botaoinicio">Iniciar/Reiniciar Jogo</botao>
         <div>
-            <label for="difficulty">Dificuldade:</label>
-            <select id="difficulty">
-                <option value="easy">Fácil</option>
-                <option value="hard">Difícil</option>
+            <label for="dificuldade">Dificuldade:</label>
+            <select id="dificuldade">
+                <option value="facil">Fácil</option>
+                <option value="dificil">Difícil</option>
             </select>
         </div>
     </div>
     <div id="gameContainer">
         <div id="boardContainer">
-            <div id="boardeasy"></div>
-            <div id="boardhard"></div>
+            <div id="tabelafacil"></div>
+            <div id="tabeladificil"></div>
         </div>
-        <div id="history">
+        <div id="historico">
             <h2>Histórico de Jogadas da Máquina</h2>
-            <ul id="historyList"></ul>
+            <ul id="historicoLista"></ul>
         </div>
     </div>
-    <div id="result"></div>
-    <div id="score" style="display: none;">
+    <div id="resultado"></div>
+    <div id="pontuacao" style="display: none;">
         <h2>Pontuação</h2>
-        <p>Jogador: <span id="playerScore">0</span></p>
-        <p>Máquina: <span id="computerScore">0</span></p>
-        <p>Acertos: <span id="playerHits">0</span></p>
-        <p>Erros: <span id="playerMisses">0</span></p>
+        <p>Jogador: <span id="pontuacaojogador">0</span></p>
+        <p>Máquina: <span id="pontuacaocomputador">0</span></p>
+        <p>Acertos: <span id="acertosjogador">0</span></p>
+        <p>Erros: <span id="errosjogador">0</span></p>
     </div>
     <script src="script.js"></script>
 </body>
